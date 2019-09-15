@@ -6,8 +6,8 @@ from .models import Version, Site
 
 @admin.register(Version)
 class VersionAdmin(admin.ModelAdmin):
-    readonly_fields = ('created_at', 'updated_at')
+    readonly_fields = ('id', 'created_at', 'updated_at')
 
 @admin.register(Site)
 class SiteAdmin(admin.ModelAdmin):
-    pass
+    readonly_fields = ('id', )
