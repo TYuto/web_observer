@@ -3,6 +3,8 @@ from django.http import HttpResponse
 
 from .models import Site, Version
 from . import scraper
+from .notify_helper import notify
+
 
 def versionView(request, version):
     v = Version.objects.filter(id=version).first()
@@ -25,6 +27,8 @@ def cronTask(requests):
         if current_version.html == html:
             current_version.save()
         else:
-            Version.objects.create(html=html, site=site).save()
+            v = Version.objects.create(html=html, site=site)
+            v.save()
+            notify(v)
     return HttpResponse("ok")
 
